@@ -20,11 +20,11 @@ namespace KooliProjekt.Application.Data
         public decimal VatAmount { get; set; }
 
         // viide Toode
-        public int ToodeId { get; set; }
         public Toode Toode { get; set; }
+        public int ToodeId { get; set; }
 
         // viide Arve
-        public int ArveId { get; set; }
         public Arve Arve { get; set; }
+        public int ArveId { get; set; }
     }
 }

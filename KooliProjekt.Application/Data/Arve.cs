@@ -18,9 +18,8 @@ namespace KooliProjekt.Application.Data
         public decimal ShippingTotal { get; set; }
         public decimal Discount { get; set; }
         public decimal GrandTotal { get; set; }
-
-        public int KlientId { get; set; }
         public Klient Klient { get; set; }
+        public int KlientId { get; set; }
 
         public List<Tellimus> Tellimused { get; set; } = new List<Tellimus>();
     }
