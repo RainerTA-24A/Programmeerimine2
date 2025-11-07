@@ -33,6 +33,7 @@ namespace KooliProjekt.Application.Data
         public Klient Klient { get; set; }
         public int KlientId { get; set; }
 
-        public List<Tellimus> Tellimused { get; set; } = new List<Tellimus>();
+        public Tellimus Tellimus { get; set; }
+        public int TellimusId { get; set; }
     }
 }
