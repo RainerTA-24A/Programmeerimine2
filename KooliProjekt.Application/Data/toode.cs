@@ -18,5 +18,8 @@ namespace KooliProjekt.Application.Data
 
         [Range(0, double.MaxValue)]
         public decimal Price { get; set; }
+
+        [Range(0, double.MaxValue)]
+        public decimal StockQuantity { get; set; } // Lisatud: Laos olev kogus
     }
 }

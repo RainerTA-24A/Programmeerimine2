@@ -1,20 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace KooliProjekt.Application.Data
 {
     public class Tellimus
     {
         public int Id { get; set; }
-        
 
-        // viide Arve
+        [Required]
+        public DateTime OrderDate { get; set; }
+
+        [MaxLength(50)]
+        public string Status { get; set; } // Lisatud oleku väli
+
+        // Seos Kliendiga (One-to-Many)
+        public Klient Klient { get; set; }
+        [Required]
+        public int KlientId { get; set; }
+
+        // Seos Arvega (One-to-One)
         public Arve Arve { get; set; }
-        public int ArveId { get; set; }
 
-        public IList<TellimuseRida> Read { get; set; }
+        // Seos Tellimuse Ridadega (One-to-Many)
+        public IList<TellimuseRida> TellimuseRead { get; set; } = new List<TellimuseRida>();
     }
 }

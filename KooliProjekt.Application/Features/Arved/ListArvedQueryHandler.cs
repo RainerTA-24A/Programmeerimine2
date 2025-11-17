@@ -1,31 +1,50 @@
-﻿using KooliProjekt.Application.Data;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using KooliProjekt.Application.Data;
+using KooliProjekt.Application.Dto;
 using KooliProjekt.Application.Infrastructure.Paging;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace KooliProjekt.Application.Features.Arved
 {
-    public class ListArvedQueryHandler : IRequestHandler<ListArvedQuery, OperationResult<PagedResult<Arve>>>
+    public class ListArvedQueryHandler : IRequestHandler<ListArvedQuery, OperationResult<PagedResult<ArveListDto>>>
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext _dbContext;
 
-        public ListArvedQueryHandler(ApplicationDbContext db)
+        public ListArvedQueryHandler(ApplicationDbContext dbContext)
         {
-            _db = db;
+            _dbContext = dbContext;
         }
 
-        public async Task<OperationResult<PagedResult<Arve>>> Handle(ListArvedQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<PagedResult<ArveListDto>>> Handle(ListArvedQuery request, CancellationToken cancellationToken)
         {
-            var result = new OperationResult<PagedResult<Arve>>();
+            var result = new OperationResult<PagedResult<ArveListDto>>();
 
-            result.Value = await _db.Arved
+            var query = _dbContext.Arved
                 .Include(a => a.Klient)
-                .OrderBy(a => a.InvoiceNumber)
-                .GetPagedAsync(request.Page, request.PageSize);
+                .OrderBy(a => a.InvoiceDate)
+                .Select(a => new ArveListDto
+                {
+                    Id = a.Id,
+                    InvoiceNumber = a.InvoiceNumber,
+                    InvoiceDate = a.InvoiceDate,
+                    GrandTotal = a.GrandTotal,
+                    Status = a.Status,
+                    Klient = new KlientListDto
+                    {
+                        Id = a.Klient.Id,
+                        FirstName = a.Klient.FirstName,
+                        LastName = a.Klient.LastName,
+                        Email = a.Klient.Email,
+                        Discount = a.Klient.Discount
+                    }
+                })
+                .AsQueryable();
+
+            result.Value = await query.GetPagedAsync(request.Page, request.PageSize);
 
             return result;
         }

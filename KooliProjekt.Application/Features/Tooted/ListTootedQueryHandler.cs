@@ -1,30 +1,40 @@
-﻿using KooliProjekt.Application.Data;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using KooliProjekt.Application.Data;
+using KooliProjekt.Application.Dto;
 using KooliProjekt.Application.Infrastructure.Paging;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace KooliProjekt.Application.Features.Tooted
 {
-    public class ListTootedQueryHandler : IRequestHandler<ListTootedQuery, OperationResult<PagedResult<Toode>>>
+    public class ListTootedQueryHandler : IRequestHandler<ListTootedQuery, OperationResult<PagedResult<ToodeListDto>>>
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext _dbContext;
 
-        public ListTootedQueryHandler(ApplicationDbContext db)
+        public ListTootedQueryHandler(ApplicationDbContext dbContext)
         {
-            _db = db;
+            _dbContext = dbContext;
         }
 
-        public async Task<OperationResult<PagedResult<Toode>>> Handle(ListTootedQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<PagedResult<ToodeListDto>>> Handle(ListTootedQuery request, CancellationToken cancellationToken)
         {
-            var result = new OperationResult<PagedResult<Toode>>();
+            var result = new OperationResult<PagedResult<ToodeListDto>>();
 
-            result.Value = await _db.Tooted
-                .OrderBy(p => p.Name)
-                .GetPagedAsync(request.Page, request.PageSize);
+            var query = _dbContext.Tooted
+                .OrderBy(t => t.Name)
+                .Select(t => new ToodeListDto
+                {
+                    Id = t.Id,
+                    Name = t.Name,
+                    FotoURL = t.FotoURL,
+                    Price = t.Price,
+                    StockQuantity = t.StockQuantity
+                });
+
+            result.Value = await query.GetPagedAsync(request.Page, request.PageSize);
 
             return result;
         }

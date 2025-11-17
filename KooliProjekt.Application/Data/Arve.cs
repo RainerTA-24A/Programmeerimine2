@@ -30,10 +30,14 @@ namespace KooliProjekt.Application.Data
         [Range(0, double.MaxValue)]
         public decimal GrandTotal { get; set; }
 
+        // Seos Kliendiga (One-to-Many)
         public Klient Klient { get; set; }
         public int KlientId { get; set; }
 
+        // Seos Tellimusega (One-to-One)
+        // See on FK, mis on konfigureeritud ApplicationDbContextis olema ka Unique/Primary
         public Tellimus Tellimus { get; set; }
+        [Required]
         public int TellimusId { get; set; }
     }
 }

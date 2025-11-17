@@ -1,31 +1,39 @@
-﻿using KooliProjekt.Application.Data;
+﻿using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using KooliProjekt.Application.Data;
+using KooliProjekt.Application.Dto;
 using KooliProjekt.Application.Infrastructure.Paging;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace KooliProjekt.Application.Features.Kliendid
 {
-    public class ListKliendidQueryHandler : IRequestHandler<ListKliendidQuery, OperationResult<PagedResult<Klient>>>
+    public class ListKliendidQueryHandler : IRequestHandler<ListKliendidQuery, OperationResult<PagedResult<KlientListDto>>>
     {
-        private readonly ApplicationDbContext _db;
+        private readonly ApplicationDbContext _dbContext;
 
-        public ListKliendidQueryHandler(ApplicationDbContext db)
+        public ListKliendidQueryHandler(ApplicationDbContext dbContext)
         {
-            _db = db;
+            _dbContext = dbContext;
         }
 
-        public async Task<OperationResult<PagedResult<Klient>>> Handle(ListKliendidQuery request, CancellationToken cancellationToken)
+        public async Task<OperationResult<PagedResult<KlientListDto>>> Handle(ListKliendidQuery request, CancellationToken cancellationToken)
         {
-            var result = new OperationResult<PagedResult<Klient>>();
+            var result = new OperationResult<PagedResult<KlientListDto>>();
 
-            result.Value = await _db.Kliendid
-                .OrderBy(k => k.Name)
-                .GetPagedAsync(request.Page, request.PageSize);
+            var query = _dbContext.Kliendid
+                .OrderBy(k => k.LastName)
+                .Select(k => new KlientListDto
+                {
+                    Id = k.Id,
+                    FirstName = k.FirstName,
+                    LastName = k.LastName,
+                    Email = k.Email,
+                    Discount = k.Discount
+                });
 
+            result.Value = await query.GetPagedAsync(request.Page, request.PageSize);
             return result;
         }
     }
