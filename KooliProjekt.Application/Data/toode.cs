@@ -20,6 +20,6 @@ namespace KooliProjekt.Application.Data
         public decimal Price { get; set; }
 
         [Range(0, double.MaxValue)]
-        public decimal StockQuantity { get; set; } // Lisatud: Laos olev kogus
+        public decimal StockQuantity { get; set; } 
     }
 }

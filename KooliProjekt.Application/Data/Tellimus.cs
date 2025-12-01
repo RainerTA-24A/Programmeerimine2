@@ -12,7 +12,7 @@ namespace KooliProjekt.Application.Data
         public DateTime OrderDate { get; set; }
 
         [MaxLength(50)]
-        public string Status { get; set; } // Lisatud oleku väli
+        public string Status { get; set; } 
 
         // Seos Kliendiga (One-to-Many)
         public Klient Klient { get; set; }

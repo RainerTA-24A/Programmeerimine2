@@ -5,7 +5,6 @@ namespace KooliProjekt.Application.Data
 {
     /// <summary>
     /// 14.11.2025
-    /// Testandmete generaator (sarnane õpetaja näitele)
     /// Genereerib andmed ainult siis kui vajalik tabel on tühi.
     /// </summary>
     public class SeedData
