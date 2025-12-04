@@ -1,6 +1,7 @@
 using FluentValidation;
 using KooliProjekt.Application.Behaviors;
 using KooliProjekt.Application.Data;
+using KooliProjekt.Application.Data.Repositories; 
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -42,6 +43,15 @@ namespace KooliProjekt.WebAPI
                 config.AddOpenBehavior(typeof(TransactionalBehavior<,>));
             });
 
+            // Registreeri repository liidesed ja nende implementatsioonid (Dependency Injection)
+            builder.Services.AddScoped<IKlientRepository, KlientRepository>();
+            builder.Services.AddScoped<IToodeRepository, ToodeRepository>();
+            builder.Services.AddScoped<IArveRepository, ArveRepository>();
+            builder.Services.AddScoped<ITellimusRepository, TellimusRepository>();
+            builder.Services.AddScoped<ITellimuseRidaRepository, TellimuseRidaRepository>();
+
+
+
             var app = builder.Build();
 
             // Swagger UI dev
@@ -61,6 +71,7 @@ namespace KooliProjekt.WebAPI
                 dbContext.Database.Migrate();
 
 #if DEBUG
+                // Eeldame, et SeedData klass on nüüd Application.Data nimespaidis
                 var seeder = new SeedData(dbContext);
                 seeder.Generate();
 #endif
@@ -69,4 +80,4 @@ namespace KooliProjekt.WebAPI
             app.Run();
         }
     }
-}   
+}

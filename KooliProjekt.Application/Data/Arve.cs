@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KooliProjekt.Application.Data
 {
-    public class Arve
+    public class Arve : Entity
     {
-        public int Id { get; set; }
 
         [Required]
         [MaxLength(50)]
@@ -39,5 +38,7 @@ namespace KooliProjekt.Application.Data
         public Tellimus Tellimus { get; set; }
         [Required]
         public int TellimusId { get; set; }
+
+        public IList<TellimuseRida> TellimuseRead { get; set; } = new List<TellimuseRida>();
     }
 }

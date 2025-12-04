@@ -4,12 +4,11 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KooliProjekt.Application.Data
 {
-    public class Klient
+    public class Klient : Entity
     {
-        public int Id { get; set; }
         [Required]
         [MaxLength(50)]
-        [Column("FirstName")] 
+        [Column("FirstName")]
         public string FirstName { get; set; }
         [Required]
         [MaxLength(50)]
@@ -29,6 +28,7 @@ namespace KooliProjekt.Application.Data
         public decimal Discount { get; set; }
 
         public IList<Tellimus> Tellimused { get; set; } = new List<Tellimus>();
-        public List<Arve> Arved { get; set; } = new List<Arve>();
+        public IList<Arve> Arved { get; set; } = new List<Arve>();
+
     }
 }

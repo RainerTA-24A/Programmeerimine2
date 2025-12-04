@@ -4,9 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace KooliProjekt.Application.Data
 {
-    public class Tellimus
+    public class Tellimus : Entity
     {
-        public int Id { get; set; }
 
         [Required]
         public DateTime OrderDate { get; set; }
@@ -24,5 +23,6 @@ namespace KooliProjekt.Application.Data
 
         // Seos Tellimuse Ridadega (One-to-Many)
         public IList<TellimuseRida> TellimuseRead { get; set; } = new List<TellimuseRida>();
+
     }
 }

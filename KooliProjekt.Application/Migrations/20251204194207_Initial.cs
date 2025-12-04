@@ -113,11 +113,17 @@ namespace KooliProjekt.Application.Migrations
                     VatRate = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     VatAmount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     ToodeId = table.Column<int>(type: "int", nullable: false),
-                    TellimusId = table.Column<int>(type: "int", nullable: false)
+                    TellimusId = table.Column<int>(type: "int", nullable: false),
+                    ArveId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_TellimusedRida", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TellimusedRida_Arved_ArveId",
+                        column: x => x.ArveId,
+                        principalTable: "Arved",
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_TellimusedRida_Tellimused_TellimusId",
                         column: x => x.TellimusId,
@@ -149,6 +155,11 @@ namespace KooliProjekt.Application.Migrations
                 column: "KlientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_TellimusedRida_ArveId",
+                table: "TellimusedRida",
+                column: "ArveId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_TellimusedRida_TellimusId",
                 table: "TellimusedRida",
                 column: "TellimusId");
@@ -163,16 +174,16 @@ namespace KooliProjekt.Application.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Arved");
-
-            migrationBuilder.DropTable(
                 name: "TellimusedRida");
 
             migrationBuilder.DropTable(
-                name: "Tellimused");
+                name: "Arved");
 
             migrationBuilder.DropTable(
                 name: "Tooted");
+
+            migrationBuilder.DropTable(
+                name: "Tellimused");
 
             migrationBuilder.DropTable(
                 name: "Kliendid");

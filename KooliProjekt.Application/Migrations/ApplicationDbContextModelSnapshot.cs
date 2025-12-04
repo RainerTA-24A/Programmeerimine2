@@ -144,6 +144,9 @@ namespace KooliProjekt.Application.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("ArveId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("LineTotal")
                         .HasColumnType("decimal(18,2)");
 
@@ -166,6 +169,8 @@ namespace KooliProjekt.Application.Migrations
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ArveId");
 
                     b.HasIndex("TellimusId");
 
@@ -238,6 +243,10 @@ namespace KooliProjekt.Application.Migrations
 
             modelBuilder.Entity("KooliProjekt.Application.Data.TellimuseRida", b =>
                 {
+                    b.HasOne("KooliProjekt.Application.Data.Arve", null)
+                        .WithMany("TellimuseRead")
+                        .HasForeignKey("ArveId");
+
                     b.HasOne("KooliProjekt.Application.Data.Tellimus", "Tellimus")
                         .WithMany("TellimuseRead")
                         .HasForeignKey("TellimusId")
@@ -253,6 +262,11 @@ namespace KooliProjekt.Application.Migrations
                     b.Navigation("Tellimus");
 
                     b.Navigation("Toode");
+                });
+
+            modelBuilder.Entity("KooliProjekt.Application.Data.Arve", b =>
+                {
+                    b.Navigation("TellimuseRead");
                 });
 
             modelBuilder.Entity("KooliProjekt.Application.Data.Klient", b =>

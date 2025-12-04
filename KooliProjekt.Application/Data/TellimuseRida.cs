@@ -2,9 +2,8 @@
 
 namespace KooliProjekt.Application.Data
 {
-    public class TellimuseRida
+    public class TellimuseRida : Entity
     {
-        public int Id { get; set; }
 
         [Range(0.01, double.MaxValue)]
         public decimal Quantity { get; set; }
@@ -13,7 +12,7 @@ namespace KooliProjekt.Application.Data
         public decimal UnitPrice { get; set; }
         public decimal LineTotal { get; set; }
 
-        [Range(0, 1)] // 0.20 tähistab 20%
+        [Range(0.0, 1.0)] // 0.20 tähistab 20%
         public decimal VatRate { get; set; }
         public decimal VatAmount { get; set; }
 
