@@ -16,14 +16,17 @@ namespace KooliProjekt.Application.Features.Tellimused
 
         public GetTellimusQueryHandler(ApplicationDbContext dbContext)
         {
-            // Konstruktori null-kontroll
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
         public async Task<OperationResult<TellimusDto>> Handle(GetTellimusQuery request, CancellationToken cancellationToken)
         {
-            // Kui request on null, välju kohe
             if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            if (request.Id <= 0)
             {
                 return new OperationResult<TellimusDto> { Value = null };
             }

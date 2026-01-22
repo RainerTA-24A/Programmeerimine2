@@ -21,15 +21,20 @@ namespace KooliProjekt.Application.Features.Kliendid
 
         public async Task<OperationResult<KlientDto>> Handle(GetKlientQuery request, CancellationToken cancellationToken)
         {
-            // Kontrollime, et päring ise poleks null
+            // Handler annab ArgumentNullException kui request on null
             if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            // Handler ei tee andmebaasi päringut kui request.Id <= 0
+            if (request.Id <= 0)
             {
                 return new OperationResult<KlientDto> { Value = null };
             }
 
             var result = new OperationResult<KlientDto>();
 
-            // Päring andmebaasist
             result.Value = await _dbContext.Kliendid
                 .Where(k => k.Id == request.Id)
                 .Select(k => new KlientDto

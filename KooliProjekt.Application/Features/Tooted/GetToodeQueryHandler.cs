@@ -23,8 +23,14 @@ namespace KooliProjekt.Application.Features.Tooted
         {
             if (request == null)
             {
-                return new OperationResult<ToodeDto>{Value = null};
+                throw new ArgumentNullException(nameof(request));
             }
+
+            if (request.Id <= 0)
+            {
+                return new OperationResult<ToodeDto> { Value = null };
+            }
+
             var result = new OperationResult<ToodeDto>();
 
             var toode = await _dbContext.Tooted

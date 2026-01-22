@@ -16,14 +16,17 @@ namespace KooliProjekt.Application.Features.Arved
 
         public GetArveQueryHandler(ApplicationDbContext dbContext)
         {
-            // ÕPETAJA STIIL: Konstruktori null-kontroll
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
         public async Task<OperationResult<ArveDto>> Handle(GetArveQuery request, CancellationToken cancellationToken)
         {
-            // ÕPETAJA NÕUE: Kui request on null, välju kohe
             if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            if (request.Id <= 0)
             {
                 return new OperationResult<ArveDto> { Value = null };
             }
