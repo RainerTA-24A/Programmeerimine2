@@ -16,7 +16,7 @@ namespace KooliProjekt.Application.Features.Kliendid
 
         public ListKliendidQueryHandler(ApplicationDbContext dbContext)
         {
-            // PARANDUS: Lisatud null-kontroll
+            //Lisatud null-kontroll
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
 
