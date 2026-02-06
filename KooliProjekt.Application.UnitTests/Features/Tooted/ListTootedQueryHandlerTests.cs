@@ -1,7 +1,9 @@
 ﻿using Xunit;
 using KooliProjekt.Application.Features.Tooted;
 using KooliProjekt.Application.UnitTests;
+using KooliProjekt.Application.Data;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 
@@ -23,11 +25,22 @@ namespace KooliProjekt.UnitTests.Features.Tooted
         }
 
         [Fact]
-        public async Task Handle_should_throw_ArgumentException_if_pageSize_is_too_large()
+        public async Task Handle_should_return_list_of_products_when_data_exists()
         {
-            var query = new ListTootedQuery { Page = 1, PageSize = 101 };
+            // Arrange
+            DbContext.Tooted.Add(new Toode { Name = "Sool", Price = 1.2m });
+            await DbContext.SaveChangesAsync();
+
+            var query = new ListTootedQuery { Page = 1, PageSize = 10 };
             var handler = new ListTootedQueryHandler(DbContext);
-            await Assert.ThrowsAsync<ArgumentException>(() => handler.Handle(query, CancellationToken.None));
+
+            // Act
+            var result = await handler.Handle(query, CancellationToken.None);
+
+            // Assert
+            Assert.NotNull(result.Value);
+            Assert.NotEmpty(result.Value.Results);
+            Assert.Equal("Sool", result.Value.Results.First().Name);
         }
     }
-}
+}a

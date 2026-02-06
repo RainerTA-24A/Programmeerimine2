@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using System.Linq;
 using KooliProjekt.Application.Features.Tooted;
 using KooliProjekt.Application.UnitTests;
 using Microsoft.EntityFrameworkCore;
@@ -37,6 +38,31 @@ namespace KooliProjekt.UnitTests.Features.Tooted
 
             // Assert
             Assert.True(result.HasErrors);
+        }
+
+        // --- MINU LISATUD: Validaatori testid coverage jaoks ---
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void Validator_should_fail_when_Name_is_empty(string name)
+        {
+            var validator = new SaveToodeCommandValidator();
+            var command = new SaveToodeCommand { Name = name, Price = 10 };
+
+            var result = validator.Validate(command);
+
+            Assert.False(result.IsValid);
+        }
+
+        [Fact]
+        public void Validator_should_pass_when_data_is_valid()
+        {
+            var validator = new SaveToodeCommandValidator();
+            var command = new SaveToodeCommand { Name = "Korrektne Toode", Price = 5.5m };
+
+            var result = validator.Validate(command);
+
+            Assert.True(result.IsValid);
         }
     }
 }
