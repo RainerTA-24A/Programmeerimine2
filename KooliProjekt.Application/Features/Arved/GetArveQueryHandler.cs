@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace KooliProjekt.Application.Features.Arved
 {
+
     public class GetArveQueryHandler : IRequestHandler<GetArveQuery, OperationResult<ArveDto>>
     {
         private readonly ApplicationDbContext _dbContext;
@@ -18,6 +19,7 @@ namespace KooliProjekt.Application.Features.Arved
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
+
 
         public async Task<OperationResult<ArveDto>> Handle(GetArveQuery request, CancellationToken cancellationToken)
         {
@@ -74,5 +76,6 @@ namespace KooliProjekt.Application.Features.Arved
             result.Value = arve;
             return result;
         }
+
     }
 }

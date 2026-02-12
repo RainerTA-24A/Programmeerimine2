@@ -1,9 +1,11 @@
-﻿using KooliProjekt.Application.Infrastructure.Results;
+﻿using System;
+using System.Diagnostics.CodeAnalysis;
+using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
-using System;
 
 namespace KooliProjekt.Application.Features.Arved
 {
+    [ExcludeFromCodeCoverage]
     public class SaveArveCommand : IRequest<OperationResult>
     {
         public int Id { get; set; }

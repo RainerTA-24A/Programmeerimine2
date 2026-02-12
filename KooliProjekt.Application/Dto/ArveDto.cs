@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 namespace KooliProjekt.Application.Dto
 {
     // Kasutatakse detailvaates (GetQuery)
+    [ExcludeFromCodeCoverage]
     public class ArveDto
     {
         public int Id { get; set; }

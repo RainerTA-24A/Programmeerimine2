@@ -1,10 +1,12 @@
-﻿using KooliProjekt.Application.Infrastructure.Results;
-using MediatR;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
+using KooliProjekt.Application.Infrastructure.Results;
+using MediatR;
 
 namespace KooliProjekt.Application.Features.Tellimused
 {
+    [ExcludeFromCodeCoverage]
     public class SaveTellimusCommand : IRequest<OperationResult>
     {
         public int Id { get; set; }
@@ -15,6 +17,7 @@ namespace KooliProjekt.Application.Features.Tellimused
         public IList<SaveTellimuseRidaDto> TellimuseRead { get; set; } = new List<SaveTellimuseRidaDto>();
     }
 
+    [ExcludeFromCodeCoverage]
     public class SaveTellimuseRidaDto
     {
         public int Id { get; set; }

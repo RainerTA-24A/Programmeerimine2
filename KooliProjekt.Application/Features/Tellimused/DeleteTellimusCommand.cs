@@ -1,8 +1,10 @@
-﻿using KooliProjekt.Application.Infrastructure.Results;
+﻿using System.Diagnostics.CodeAnalysis;
+using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 
 namespace KooliProjekt.Application.Features.Tellimused
 {
+    [ExcludeFromCodeCoverage]
     public class DeleteTellimusCommand : IRequest<OperationResult>
     {
         public int Id { get; set; }

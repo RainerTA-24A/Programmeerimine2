@@ -1,7 +1,9 @@
-﻿using FluentValidation;
+﻿using System.Diagnostics.CodeAnalysis;
+using FluentValidation;
 
 namespace KooliProjekt.Application.Features.Arved
 {
+    [ExcludeFromCodeCoverage]
     public class SaveArveCommandValidator : AbstractValidator<SaveArveCommand>
     {
         public SaveArveCommandValidator()

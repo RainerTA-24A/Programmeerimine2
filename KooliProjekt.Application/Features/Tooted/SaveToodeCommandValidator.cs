@@ -1,7 +1,9 @@
-﻿using FluentValidation;
+﻿using System.Diagnostics.CodeAnalysis;
+using FluentValidation;
 
 namespace KooliProjekt.Application.Features.Tooted
 {
+    [ExcludeFromCodeCoverage]
     public class SaveToodeCommandValidator : AbstractValidator<SaveToodeCommand>
     {
         public SaveToodeCommandValidator()

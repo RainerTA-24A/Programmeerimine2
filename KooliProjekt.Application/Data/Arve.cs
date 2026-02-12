@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace KooliProjekt.Application.Data
 {
+    [ExcludeFromCodeCoverage]
     public class Arve
     {
         public int Id { get; set; }

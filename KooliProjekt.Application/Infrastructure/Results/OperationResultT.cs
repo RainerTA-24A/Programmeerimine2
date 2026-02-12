@@ -1,28 +1,29 @@
-﻿namespace KooliProjekt.Application.Infrastructure.Results
+﻿namespace KooliProjekt.Application.Infrastructure.Results;
+using System.Diagnostics.CodeAnalysis;
+
+[ExcludeFromCodeCoverage]
+public class OperationResult<T> : OperationResult
 {
-    public class OperationResult<T> : OperationResult
+    public T Value { get; set; }
+
+    public OperationResult() { }
+
+    public OperationResult(T value) 
+    { 
+        Value = value;
+    }        
+
+    public new OperationResult<T> AddError(string error)
     {
-        public T Value { get; set; }
+        base.AddError(error);
 
-        public OperationResult() { }
+        return this;
+    }
 
-        public OperationResult(T value) 
-        { 
-            Value = value;
-        }        
+    public new OperationResult<T> AddPropertyError(string propertyName, string error)
+    {
+        base.AddPropertyError(propertyName, error);
 
-        public new OperationResult<T> AddError(string error)
-        {
-            base.AddError(error);
-
-            return this;
-        }
-
-        public new OperationResult<T> AddPropertyError(string propertyName, string error)
-        {
-            base.AddPropertyError(propertyName, error);
-
-            return this;
-        }
+        return this;
     }
 }

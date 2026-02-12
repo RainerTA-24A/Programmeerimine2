@@ -1,10 +1,12 @@
-﻿using KooliProjekt.Application.Dto;
+﻿using System.Diagnostics.CodeAnalysis;
+using KooliProjekt.Application.Dto;
 using KooliProjekt.Application.Infrastructure.Paging;
 using KooliProjekt.Application.Infrastructure.Results;
 using MediatR;
 
 namespace KooliProjekt.Application.Features.Tooted
 {
+    [ExcludeFromCodeCoverage]
     public class ListTootedQuery : IRequest<OperationResult<PagedResult<ToodeListDto>>>
     {
         public int Page { get; set; }

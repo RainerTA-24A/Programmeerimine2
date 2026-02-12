@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KooliProjekt.Application.Data
 {
+    [ExcludeFromCodeCoverage]
     public class Klient
     {
         public int Id { get; set; }
