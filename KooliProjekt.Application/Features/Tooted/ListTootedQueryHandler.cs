@@ -30,7 +30,7 @@ namespace KooliProjekt.Application.Features.Tooted
             var result = new OperationResult<PagedResult<ToodeListDto>>();
 
             var query = _dbContext.Tooted
-                .OrderBy(t => t.Name)
+                .OrderBy(t => t.Id)
                 .Select(t => new ToodeListDto
                 {
                     Id = t.Id,

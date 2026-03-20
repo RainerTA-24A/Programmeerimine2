@@ -42,7 +42,7 @@ namespace KooliProjekt.Application.Features.Kliendid
             var result = new OperationResult<PagedResult<KlientListDto>>();
 
             var query = _dbContext.Kliendid
-                .OrderBy(k => k.LastName)
+                .OrderBy(k => k.Id)
                 .Select(k => new KlientListDto
                 {
                     Id = k.Id,
