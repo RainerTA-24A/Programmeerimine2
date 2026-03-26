@@ -1,4 +1,4 @@
-namespace KooliProjekt.WindowsForms
+namespace KooliProjekt.WindowsForms.Api
 {
     public class PagedResult<T> : PagedResultBase
     {
@@ -6,7 +6,7 @@ namespace KooliProjekt.WindowsForms
 
         public PagedResult()
         {
-            Results = new List<T>();
+            Results = [];
         }
     }
 }

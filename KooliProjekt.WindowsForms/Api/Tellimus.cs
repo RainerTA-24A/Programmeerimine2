@@ -1,6 +1,6 @@
 using System;
 
-namespace KooliProjekt.WindowsForms
+namespace KooliProjekt.WindowsForms.Api
 {
     public class Tellimus
     {

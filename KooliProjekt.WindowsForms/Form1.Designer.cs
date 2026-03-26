@@ -60,7 +60,7 @@ partial class Form1
         this.btnTooted.TabIndex = 0;
         this.btnTooted.Text = "Tooted";
         this.btnTooted.UseVisualStyleBackColor = true;
-        this.btnTooted.Click += new System.EventHandler(this.btnTooted_Click);
+        this.btnTooted.Click += new System.EventHandler(this.BtnTooted_Click);
         // 
         // btnKliendid
         // 
@@ -70,7 +70,7 @@ partial class Form1
         this.btnKliendid.TabIndex = 1;
         this.btnKliendid.Text = "Kliendid";
         this.btnKliendid.UseVisualStyleBackColor = true;
-        this.btnKliendid.Click += new System.EventHandler(this.btnKliendid_Click);
+        this.btnKliendid.Click += new System.EventHandler(this.BtnKliendid_Click);
         // 
         // btnTellimused
         // 
@@ -80,7 +80,7 @@ partial class Form1
         this.btnTellimused.TabIndex = 2;
         this.btnTellimused.Text = "Tellimused";
         this.btnTellimused.UseVisualStyleBackColor = true;
-        this.btnTellimused.Click += new System.EventHandler(this.btnTellimused_Click);
+        this.btnTellimused.Click += new System.EventHandler(this.BtnTellimused_Click);
         // 
         // btnArved
         // 
@@ -90,7 +90,7 @@ partial class Form1
         this.btnArved.TabIndex = 3;
         this.btnArved.Text = "Arved";
         this.btnArved.UseVisualStyleBackColor = true;
-        this.btnArved.Click += new System.EventHandler(this.btnArved_Click);
+        this.btnArved.Click += new System.EventHandler(this.BtnArved_Click);
         // 
         // btnTellimuseRead
         // 
@@ -100,7 +100,7 @@ partial class Form1
         this.btnTellimuseRead.TabIndex = 4;
         this.btnTellimuseRead.Text = "Tellimuse Read";
         this.btnTellimuseRead.UseVisualStyleBackColor = true;
-        this.btnTellimuseRead.Click += new System.EventHandler(this.btnTellimuseRead_Click);
+        this.btnTellimuseRead.Click += new System.EventHandler(this.BtnTellimuseRead_Click);
         // 
         // dataGridView1
         // 
