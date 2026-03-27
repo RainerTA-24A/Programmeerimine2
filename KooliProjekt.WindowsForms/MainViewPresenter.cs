@@ -44,5 +44,42 @@ namespace KooliProjekt.WindowsForms
                 _mainView.CurrentTitle = _selectedList.Name;
             }
         }
+
+        public async Task Save()
+        {
+            var toode = new Toode
+            {
+                Id = _mainView.CurrentId,
+                Name = _mainView.CurrentTitle,
+                Price = _selectedList?.Price ?? 10,
+                StockQuantity = _selectedList?.StockQuantity ?? 10
+            };
+
+            var result = await _apiClient.SaveToode(toode);
+            if (result.HasErrors)
+            {
+                _mainView.ShowError("Viga salvestamisel", result);
+                return;
+            }
+
+            await LoadData();
+        }
+
+        public async Task Delete()
+        {
+            if(!_mainView.ConfirmDelete())
+            {
+                return;
+            }
+
+            var result = await _apiClient.DeleteToode(_mainView.CurrentId);
+            if (result.HasErrors)
+            {
+                _mainView.ShowError("Viga kustutamisel", result);
+                return;
+            }
+
+            await LoadData();
+        }
     }
 }

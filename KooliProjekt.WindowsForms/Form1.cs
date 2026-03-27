@@ -65,7 +65,7 @@ public partial class Form1 : Form, IMainView
         panel2.Controls.Add(titleField);
 
         saveCommand = new Button { Text = "Salvesta" };
-        saveCommand.Click += async (s, e) => await SaveToodeAsync();
+        saveCommand.Click += async (s, e) => { if (_presenter != null) await _presenter.Save(); };
         panel2.Controls.Add(saveCommand);
 
         addCommand = new Button { Text = "Lisa uus" };
@@ -73,7 +73,7 @@ public partial class Form1 : Form, IMainView
         panel2.Controls.Add(addCommand);
 
         deleteCommand = new Button { Text = "Kustuta" };
-        deleteCommand.Click += async (s, e) => await DeleteToodeAsync();
+        deleteCommand.Click += async (s, e) => { if (_presenter != null) await _presenter.Delete(); };
         panel2.Controls.Add(deleteCommand);
 
         Controls.Add(panel2);
@@ -100,42 +100,6 @@ public partial class Form1 : Form, IMainView
         titleField.Text = "";
     }
 
-    private async Task SaveToodeAsync()
-    {
-        var toode = new Toode
-        {
-            Id = int.Parse(idField.Text),
-            Name = titleField.Text,
-            Price = 10,
-            StockQuantity = 10
-        };
-
-        var result = await _apiClient.SaveToode(toode);
-        if (result.HasErrors)
-        {
-            ShowError("Viga salvestamisel", result);
-            return;
-        }
-
-        await LoadTootedAsync();
-        AddNewToode();
-    }
-
-    private async Task DeleteToodeAsync()
-    {
-        if (int.TryParse(idField.Text, out int id) && id > 0)
-        {
-            var result = await _apiClient.DeleteToode(id);
-            if (result.HasErrors)
-            {
-                ShowError("Viga kustutamisel", result);
-                return;
-            }
-            await LoadTootedAsync();
-            AddNewToode();
-        }
-    }
-
     public void ShowError(string message, OperationResult result)
     {
         var errors = string.Join("\n", result.Errors ?? new List<string>());
@@ -145,6 +109,17 @@ public partial class Form1 : Form, IMainView
             errors += "\n" + propErrors;
         }
         MessageBox.Show($"{message}\n{errors}", "Viga", MessageBoxButtons.OK, MessageBoxIcon.Error);
+    }
+
+    public bool ConfirmDelete()
+    {
+        var result = MessageBox.Show(
+            "Kas olete kindel, et soovite kirje kustutada?",
+            "Kustutamine",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question
+        );
+        return result == DialogResult.Yes;
     }
 
     private async void Form1_Load(object sender, EventArgs e)
