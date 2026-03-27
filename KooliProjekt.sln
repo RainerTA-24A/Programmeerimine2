@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.14.36518.9
+# Visual Studio Version 18
+VisualStudioVersion = 18.4.11620.152
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.Application", "KooliProjekt.Application\KooliProjekt.Application.csproj", "{AE74289E-DE79-F788-C2DC-BADD9C633513}"
 EndProject
@@ -12,6 +12,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.IntegrationTests", "KooliProjekt.IntegrationTests\KooliProjekt.IntegrationTests.csproj", "{3A7D9D29-425C-86E8-EECE-B666CE7CD094}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.WindowsForms", "KooliProjekt.WindowsForms\KooliProjekt.WindowsForms.csproj", "{7B9276AE-DDB0-4CD2-B1B6-40775CAE5C15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KooliProjekt.WindowsForms.UnitTests", "KooliProjekt.WindowsForms.UnitTests\KooliProjekt.WindowsForms.UnitTests.csproj", "{5C27C522-07F8-B10E-BFB4-1BD090779882}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,18 @@ Global
 		{7B9276AE-DDB0-4CD2-B1B6-40775CAE5C15}.Release|x64.Build.0 = Release|Any CPU
 		{7B9276AE-DDB0-4CD2-B1B6-40775CAE5C15}.Release|x86.ActiveCfg = Release|Any CPU
 		{7B9276AE-DDB0-4CD2-B1B6-40775CAE5C15}.Release|x86.Build.0 = Release|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Debug|x64.Build.0 = Debug|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Debug|x86.Build.0 = Debug|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Release|x64.ActiveCfg = Release|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Release|x64.Build.0 = Release|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Release|x86.ActiveCfg = Release|Any CPU
+		{5C27C522-07F8-B10E-BFB4-1BD090779882}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
