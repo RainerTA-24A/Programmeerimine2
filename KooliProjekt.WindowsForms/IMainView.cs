@@ -11,6 +11,9 @@ namespace KooliProjekt.WindowsForms
         void ShowError(string message, OperationResult result);
         int CurrentId { get; set; }
         string CurrentTitle { get; set; }
+        string CurrentFotoUrl { get; set; }
+        decimal CurrentPrice { get; set; }
+        decimal CurrentStockQuantity { get; set; }
         bool ConfirmDelete();
     }
 }

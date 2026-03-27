@@ -19,6 +19,24 @@ public partial class Form1 : Form, IMainView
         set { if (titleField != null) titleField.Text = value; }
     }
 
+    public string CurrentFotoUrl
+    {
+        get { return fotoUrlField?.Text ?? string.Empty; }
+        set { if (fotoUrlField != null) fotoUrlField.Text = value; }
+    }
+
+    public decimal CurrentPrice
+    {
+        get { return decimal.TryParse(priceField?.Text, out decimal price) ? price : 0; }
+        set { if (priceField != null) priceField.Text = value.ToString("0.00"); }
+    }
+
+    public decimal CurrentStockQuantity
+    {
+        get { return decimal.TryParse(stockQuantityField?.Text, out decimal result) ? result : 0; }
+        set { if (stockQuantityField != null) stockQuantityField.Text = value.ToString("0.00"); }
+    }
+
     public IList<Toode>? DataSource
     {
         get { return dataGridView1.DataSource as IList<Toode>; }
@@ -48,31 +66,51 @@ public partial class Form1 : Form, IMainView
 
     private TextBox idField = null!;
     private TextBox titleField = null!;
+    private TextBox fotoUrlField = null!;
+    private TextBox priceField = null!;
+    private TextBox stockQuantityField = null!;
     private Button saveCommand = null!;
     private Button addCommand = null!;
     private Button deleteCommand = null!;
 
     private void InitializeCustomControls()
     {
-        var panel2 = new FlowLayoutPanel { Dock = DockStyle.Bottom, Height = 40 };
-        
-        panel2.Controls.Add(new Label { Text = "ID:", Width = 30, TextAlign = ContentAlignment.MiddleRight });
-        idField = new TextBox { Width = 50, ReadOnly = true, Text = "0" };
+        var panel2 = new FlowLayoutPanel { 
+            Dock = DockStyle.Bottom, 
+            AutoSize = true, 
+            AutoSizeMode = AutoSizeMode.GrowAndShrink, 
+            Padding = new Padding(5) 
+        };
+
+        panel2.Controls.Add(new Label { Text = "ID:", AutoSize = true, Margin = new Padding(3, 7, 3, 3) });
+        idField = new TextBox { Width = 30, ReadOnly = true, Text = "0" };
         panel2.Controls.Add(idField);
-        
-        panel2.Controls.Add(new Label { Text = "Name:", Width = 50, TextAlign = ContentAlignment.MiddleRight });
-        titleField = new TextBox { Width = 100 };
+
+        panel2.Controls.Add(new Label { Text = "Name:", AutoSize = true, Margin = new Padding(3, 7, 3, 3) });
+        titleField = new TextBox { Width = 90 };
         panel2.Controls.Add(titleField);
 
-        saveCommand = new Button { Text = "Salvesta" };
+        panel2.Controls.Add(new Label { Text = "URL:", AutoSize = true, Margin = new Padding(3, 7, 3, 3) });
+        fotoUrlField = new TextBox { Width = 90 };
+        panel2.Controls.Add(fotoUrlField);
+
+        panel2.Controls.Add(new Label { Text = "Price:", AutoSize = true, Margin = new Padding(3, 7, 3, 3) });
+        priceField = new TextBox { Width = 50 };
+        panel2.Controls.Add(priceField);
+
+        panel2.Controls.Add(new Label { Text = "Stock:", AutoSize = true, Margin = new Padding(3, 7, 3, 3) });
+        stockQuantityField = new TextBox { Width = 50 };
+        panel2.Controls.Add(stockQuantityField);
+
+        saveCommand = new Button { Text = "Salvesta", AutoSize = true, Margin = new Padding(10, 3, 3, 3) };
         saveCommand.Click += async (s, e) => { if (_presenter != null) await _presenter.Save(); };
         panel2.Controls.Add(saveCommand);
 
-        addCommand = new Button { Text = "Lisa uus" };
+        addCommand = new Button { Text = "Lisa uus", AutoSize = true };
         addCommand.Click += (s, e) => AddNewToode();
         panel2.Controls.Add(addCommand);
 
-        deleteCommand = new Button { Text = "Kustuta" };
+        deleteCommand = new Button { Text = "Kustuta", AutoSize = true };
         deleteCommand.Click += async (s, e) => { if (_presenter != null) await _presenter.Delete(); };
         panel2.Controls.Add(deleteCommand);
 
@@ -96,8 +134,10 @@ public partial class Form1 : Form, IMainView
 
     private void AddNewToode()
     {
-        idField.Text = "0";
-        titleField.Text = "";
+        if (_presenter != null)
+        {
+            _presenter.SetSelection(null);
+        }
     }
 
     public void ShowError(string message, OperationResult result)

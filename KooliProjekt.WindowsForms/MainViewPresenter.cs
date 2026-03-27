@@ -37,11 +37,17 @@ namespace KooliProjekt.WindowsForms
             {
                 _mainView.CurrentId = 0;
                 _mainView.CurrentTitle = "";
+                _mainView.CurrentFotoUrl = "";
+                _mainView.CurrentPrice = 0;
+                _mainView.CurrentStockQuantity = 0;
             }
             else
             {
                 _mainView.CurrentId = _selectedList.Id;
                 _mainView.CurrentTitle = _selectedList.Name;
+                _mainView.CurrentFotoUrl = _selectedList.FotoURL ?? "";
+                _mainView.CurrentPrice = _selectedList.Price;
+                _mainView.CurrentStockQuantity = _selectedList.StockQuantity;
             }
         }
 
@@ -51,8 +57,9 @@ namespace KooliProjekt.WindowsForms
             {
                 Id = _mainView.CurrentId,
                 Name = _mainView.CurrentTitle,
-                Price = _selectedList?.Price ?? 10,
-                StockQuantity = _selectedList?.StockQuantity ?? 10
+                FotoURL = _mainView.CurrentFotoUrl,
+                Price = _mainView.CurrentPrice,
+                StockQuantity = _mainView.CurrentStockQuantity
             };
 
             var result = await _apiClient.SaveToode(toode);
