@@ -76,46 +76,47 @@ public partial class Form1 : Form, IMainView
     private void InitializeCustomControls()
     {
         var panel2 = new FlowLayoutPanel { 
-            Dock = DockStyle.Bottom, 
-            AutoSize = true, 
-            AutoSizeMode = AutoSizeMode.GrowAndShrink, 
-            Padding = new Padding(5) 
+            Dock = DockStyle.Right, 
+            Width = 220,
+            FlowDirection = FlowDirection.TopDown,
+            Padding = new Padding(10) 
         };
 
-        panel2.Controls.Add(new Label { Text = "ID:", AutoSize = true, Margin = new Padding(3, 7, 3, 3) });
-        idField = new TextBox { Width = 30, ReadOnly = true, Text = "0" };
+        panel2.Controls.Add(new Label { Text = "ID:", AutoSize = true, Margin = new Padding(3, 5, 3, 0) });
+        idField = new TextBox { Width = 180, ReadOnly = true, Text = "0" };
         panel2.Controls.Add(idField);
 
-        panel2.Controls.Add(new Label { Text = "Name:", AutoSize = true, Margin = new Padding(3, 7, 3, 3) });
-        titleField = new TextBox { Width = 90 };
+        panel2.Controls.Add(new Label { Text = "Name:", AutoSize = true, Margin = new Padding(3, 7, 3, 0) });
+        titleField = new TextBox { Width = 180 };
         panel2.Controls.Add(titleField);
 
-        panel2.Controls.Add(new Label { Text = "URL:", AutoSize = true, Margin = new Padding(3, 7, 3, 3) });
-        fotoUrlField = new TextBox { Width = 90 };
+        panel2.Controls.Add(new Label { Text = "URL:", AutoSize = true, Margin = new Padding(3, 7, 3, 0) });
+        fotoUrlField = new TextBox { Width = 180 };
         panel2.Controls.Add(fotoUrlField);
 
-        panel2.Controls.Add(new Label { Text = "Price:", AutoSize = true, Margin = new Padding(3, 7, 3, 3) });
-        priceField = new TextBox { Width = 50 };
+        panel2.Controls.Add(new Label { Text = "Price:", AutoSize = true, Margin = new Padding(3, 7, 3, 0) });
+        priceField = new TextBox { Width = 180 };
         panel2.Controls.Add(priceField);
 
-        panel2.Controls.Add(new Label { Text = "Stock:", AutoSize = true, Margin = new Padding(3, 7, 3, 3) });
-        stockQuantityField = new TextBox { Width = 50 };
+        panel2.Controls.Add(new Label { Text = "Stock:", AutoSize = true, Margin = new Padding(3, 7, 3, 0) });
+        stockQuantityField = new TextBox { Width = 180 };
         panel2.Controls.Add(stockQuantityField);
 
-        saveCommand = new Button { Text = "Salvesta", AutoSize = true, Margin = new Padding(10, 3, 3, 3) };
+        saveCommand = new Button { Text = "Salvesta", AutoSize = true, MinimumSize = new Size(180, 0), Margin = new Padding(3, 20, 3, 3) };
         saveCommand.Click += async (s, e) => { if (_presenter != null) await _presenter.Save(); };
         panel2.Controls.Add(saveCommand);
 
-        addCommand = new Button { Text = "Lisa uus", AutoSize = true };
+        addCommand = new Button { Text = "Lisa uus", AutoSize = true, MinimumSize = new Size(180, 0), Margin = new Padding(3, 5, 3, 3) };
         addCommand.Click += (s, e) => AddNewToode();
         panel2.Controls.Add(addCommand);
 
-        deleteCommand = new Button { Text = "Kustuta", AutoSize = true };
+        deleteCommand = new Button { Text = "Kustuta", AutoSize = true, MinimumSize = new Size(180, 0), Margin = new Padding(3, 5, 3, 3) };
         deleteCommand.Click += async (s, e) => { if (_presenter != null) await _presenter.Delete(); };
         panel2.Controls.Add(deleteCommand);
 
         Controls.Add(panel2);
-        
+        panel2.BringToFront();
+
         dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         dataGridView1.SelectionChanged += DataGridView1_SelectionChanged;
     }

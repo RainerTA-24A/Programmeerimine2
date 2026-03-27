@@ -114,7 +114,7 @@ partial class Form1
         // Form1
         // 
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(800, 450);
+        this.ClientSize = new System.Drawing.Size(1200, 700);
         this.Controls.Add(this.dataGridView1);
         this.Controls.Add(this.panel1);
         this.Text = "KooliProjekt - Haldus";
