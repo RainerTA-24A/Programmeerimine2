@@ -1,28 +1,44 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace KooliProjekt.WpfApplication
 {
-    public class MainWindowViewModel : INotifyPropertyChanged
+    public class MainWindowViewModel : NotifyPropertyChangedBase
     {
-        private readonly ApiClient _apiClient;
-        private IList<Toode> _data;
+        private readonly IApiClient _apiClient;
+        private readonly ObservableCollection<Toode> _data;
         private Toode _selectedItem;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel() : this(new ApiClient())
         {
-            _apiClient = new ApiClient();
-            LoadData();
+            
         }
 
-        public IList<Toode> Data 
-        { 
-            get => _data;
-            set
+        public MainWindowViewModel(IApiClient apiClient)
+        {
+            _data = new ObservableCollection<Toode>();
+            _apiClient = apiClient;
+        }
+
+        public async Task LoadDataAsync()
+        {
+            var data = await _apiClient.ListTooted(1, 100);
+            
+            _data.Clear();
+            if (data?.Value?.Results != null)
             {
-                _data = value;
-                OnPropertyChanged();
+                foreach (var item in data.Value.Results)
+                {
+                    _data.Add(item);
+                }
+            }
+        }
+
+        public ObservableCollection<Toode> Data
+        {
+            get
+            {
+                return _data;
             }
         }
 
@@ -32,33 +48,8 @@ namespace KooliProjekt.WpfApplication
             set
             {
                 _selectedItem = value;
-                OnPropertyChanged();
+                NotifyPropertyChanged();
             }
-        }
-
-        private async void LoadData()
-        {
-            var result = await _apiClient.ListTooted(1, 100);
-            if (result.Value != null)
-            {
-                Data = result.Value.Results;
-            }
-            else
-            {
-                // Fallback to mock data if API fails
-                Data = new List<Toode>
-                {
-                    new Toode { Id = 1, Name = "Test Toode 1", Price = 10, StockQuantity = 5 },
-                    new Toode { Id = 2, Name = "Test Toode 2", Price = 20, StockQuantity = 10 }
-                };
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }
 }

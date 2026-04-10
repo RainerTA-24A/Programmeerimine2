@@ -16,7 +16,8 @@
                   Grid.Column="0"
                   AutoGenerateColumns="True"
                   ItemsSource="{Binding Data}"
-                  SelectedItem="{Binding SelectedItem}"/>
+                  SelectedItem="{Binding SelectedItem}"
+                  CanUserAddRows="False" />
 
         <StackPanel Grid.Column="1" Margin="10">
             <TextBlock>ID</TextBlock>
