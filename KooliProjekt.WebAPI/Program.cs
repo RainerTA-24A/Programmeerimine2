@@ -15,10 +15,10 @@ namespace KooliProjekt.WebAPI
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Connection string
+            // Connection string || Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
-            // DbContext
+            // DbContext || Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseSqlServer(connectionString);
@@ -27,9 +27,10 @@ namespace KooliProjekt.WebAPI
             // Controllers
             builder.Services.AddControllers();
 
-            // Swagger
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+            builder.Services.AddCors();
 
             // MediatR & Behaviors
             var applicationAssembly = typeof(ErrorHandlingBehavior<,>).Assembly;
@@ -44,12 +45,17 @@ namespace KooliProjekt.WebAPI
 
             var app = builder.Build();
 
-            // Swagger UI dev
+            // Swagger UI dev  || Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseCors(
+                options => options.AllowAnyOrigin()
+                .AllowAnyHeader()
+                .AllowAnyMethod());
 
             app.UseAuthorization();
             app.MapControllers();
