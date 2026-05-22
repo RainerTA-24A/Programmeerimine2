@@ -398,3 +398,4 @@ FodyWeavers.xsd
 # JetBrains Rider
 *.sln.iml
 /KooliProjekt.Application.UnitTests/BuildReports/Coverage
+/.github/copilot-instructions.md
